@@ -1,0 +1,40 @@
+body {
+    background-color: lightgrey;
+    margin: 0;
+}
+
+.wrapper {
+    background-color: whitesmoke;
+    width: 60%;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 1000px;
+}
+
+.form-group {
+    background-color: lightblue;
+    margin-bottom: 10px;
+}
+
+.message {
+    width: 350px;
+    height: 100px;
+}
+
+.msg {
+    background-color: lightblue;
+    margin-bottom: 10px;
+    width: 350px;
+    height: 100px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#scrollpanel {
+    height: 100px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 200px;
+}
