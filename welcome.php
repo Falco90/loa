@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="loa.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+</head>
+
 <?php
 
 require_once "config.php";
@@ -10,6 +19,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 }
 
 $UserID = $_SESSION["id"];
+
+$username = $_SESSION["username"];
 
 $message = $_POST['message'];
 
@@ -25,29 +36,24 @@ if ($link->query($sql) === TRUE) {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="loa.css">
-</head>
-<body>
-    <div class="wrapper">
-    <div class="page-header">
-        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site. </h1>
-    </div>
-    <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset your password</a>
-        <a href="logout.php" class="btn btn-danger">Sign out of your account</a>
-        <a href="messages.php" class="btn btn-danger">See your messages</a>
-    </p>
 
-    <form action="messagesent.php" method="POST">
-        Message:<br>
-        <textarea name="message" class="message"></textarea><br>
-        <input type="submit" value="send">
-    </form>
+<body>
+    <?php
+    include "navbar2.php";
+    ?>
+    <div class="wrapper">  
+    <div class="container">
+        <h2> Welcome <?php echo $username ?>!</h2>
+        <p>
+        With the Law of Attraction you can manifest anything you desire. And attract whatever it is that you want in your life. To get started go to "New manifestation" in the menu bar. To view your previous manifestations go to "Your manifestations".</p>
+        <p>
+        Before you get started it is important to take a moment to feel what it is that you really want. We often get tricked by the mind into thinking that we want something, while we actually don't! The following excersise might help you to reach your true desires. Excersise....<br><br>
+        </p>
+
+        <h3>Instructions</h3>
+        <p>Here I will write some instructions</p>
+
+</div>
 </div>
 </body>
 </html>

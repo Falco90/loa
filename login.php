@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="loa.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <title>Login</title>
+</head>
+
 <?php
 session_start();
 
@@ -28,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username_err) && empty($password_err)) {
         $sql = "SELECT id, username, password FROM users WHERE username = ?";
 
-        if($stmt = mysqli_prepare($link, $sql)) {
+        if($stmt = mysqli_prepare($mysqli, $sql)) {
 
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 
@@ -69,37 +78,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_close($stmt);
     }
 
-    mysqli_close($link);
+    mysqli_close($mysqli);
 }
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
+
 <body>
+<?php 
+include "navbar1.php";
+?>
     <div class="wrapper">
+    <div class="container">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="msg-form">
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : '' ?>">
             <label>Username</label>
-            <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
+            <input type="text" name="username" class="form-control" value="<?php echo $username; ?>"><br>
                 <span class="help-block"><?php echo $username_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control">
+                <input type="password" name="password" class="form-control"><br>
                 <span class="help-block"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
+                <input type="submit" class="register-btn" value="Login">
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
         </form>
+        <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+        </div>
     </div>
     </body>
     </html>

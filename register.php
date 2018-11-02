@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="loa.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    </head>
+
 <?php
 
 require_once "config.php";
@@ -12,7 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         $sql = "SELECT id FROM users WHERE username = ?";
 
-        if($stmt = mysqli_prepare($link, $sql)) {
+        if($stmt = mysqli_prepare($mysqli, $sql)) {
 
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 
@@ -62,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
 
-        if($stmt = mysqli_prepare($link, $sql)) {
+        if($stmt = mysqli_prepare($mysqli, $sql)) {
 
             mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
 
@@ -79,23 +88,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         mysqli_stmt_close($stmt);
     }
 
-    mysqli_close($link);
+    mysqli_close($mysqli);
 }
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="loa.css">
-    </head>
+
 <body>
+<?php 
+include "navbar1.php";
+?>
     <div class="wrapper">
+        <div class="container">
         <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+        <p>Please fill this form to create your personal manifestation account.</p>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="msg-form">
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <label>Username<br></label>
                 <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
@@ -112,11 +119,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-default" value="Reset">
+                <input type="submit" class="register-btn" value="Submit">
+                <!--<input type="reset" class="register-btn" value="Reset">-->
             </div>
-            <p>Already have an account? <a href="login.php">Login here</a>/</p>
         </form>
+        <p>Already have an account? <a href="login.php">Login here</a></p>
+</div>
     </div>
 
 

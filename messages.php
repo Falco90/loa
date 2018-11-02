@@ -1,8 +1,6 @@
 <?php
 
-
 require_once "config.php";
-
 
 session_start();
 
@@ -13,40 +11,47 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 $UserID = $_SESSION["id"];
 
-$sqlselect = "SELECT message FROM messages WHERE UserID=$UserID ORDER BY id DESC";
-$result = $link->query($sqlselect);
-/*
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) { 
-        echo '<div class="msg">';
-        echo "Message: " . $row["message"]."<br>";
-        echo '</div>';
-    }
-} else {
-    echo "0 results";
+$sqlselect = "SELECT message, date, id FROM messages WHERE UserID=$UserID ORDER BY id DESC";
+$result = $mysqli->query($sqlselect);
+
+function deleteMessage() {
+    $mid = $row["id"];
+    $sqldelete = "DELETE FROM messages WHERE id=$mid";
+    $sqldel = $mysqli->query($sqldelete);
 }
-*/
+
 ?>
 
 <head>
 <link rel="stylesheet" href="loa.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 </head>
 <body>
+<?php
+include "navbar2.php";
+?>
         <div class="wrapper">
-        <h2>Your messages</h2>
-        <a href="welcome.php">Go back to the main page</a>
+            <div class="container">
+        <h2>Your manifestations</h2>
         <?php
         if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) { 
         echo '<div class="msg">';
-        echo "". $row["message"]."<br>";
+        echo '<div class="edit-delete">';
+        echo "<p class='datetime'>". $row["date"]."<br></p>";
+        echo "<p class='delete'>delete</p>";
+        echo "</div>";
+        echo "<p>". $row["message"]."<br></p>";
+        echo "<p>". $row["id"]."</p>";
         echo '</div>';
     }
+
 } else {
     echo "0 results";
-}?>
-<div id="scrollpanel">
-    <p>test<br><br><br><br><br><br>
+}
+$mysqli->close();
+?>
+
 </div>
 </div>
 </body>
